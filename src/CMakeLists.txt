@@ -1,6 +1,7 @@
 set(
 	LIBDARTS_HEADERS
 	darts.h
+	darts.hh
 )
 
 set(
