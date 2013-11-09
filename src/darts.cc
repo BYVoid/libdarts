@@ -117,18 +117,33 @@ darts_value_type darts_exact_match_search(const darts_t darts,
   return inst->da->exactMatchSearch<darts_value_type>(key, length, node_pos);
 }
 
+darts_result_pair_type darts_exact_match_search_pair(const darts_t darts,
+                                                     const darts_key_type* key,
+                                                     size_t length,
+                                                     size_t node_pos) {
+  const DoubleArrayTrie* inst = (const DoubleArrayTrie*) darts;
+  DoubleArray::result_pair_type result_tmp =
+    inst->da->exactMatchSearch<DoubleArray::result_pair_type>(key,
+                                                              length,
+                                                              node_pos);
+  darts_result_pair_type result;
+  result.value = result_tmp.value;
+  result.length = result_tmp.length;
+  return result;
+}
+
 size_t darts_common_prefix_search(const darts_t darts,
                                   const darts_key_type* key,
-                                  darts_value_type* results,
+                                  darts_result_pair_type* results,
                                   size_t max_num_results,
                                   size_t length,
                                   size_t node_pos) {
   const DoubleArrayTrie* inst = (const DoubleArrayTrie*) darts;
   return inst->da->commonPrefixSearch(key,
-                                  results,
-                                  max_num_results,
-                                  length,
-                                  node_pos);
+                                      (DoubleArray::result_pair_type*)results,
+                                      max_num_results,
+                                      length,
+                                      node_pos);
 }
 
 darts_value_type darts_traverse(const darts_t darts,

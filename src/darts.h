@@ -22,6 +22,15 @@ typedef char darts_key_type;
  */
 typedef int darts_value_type;
 
+/*
+ <darts_result_pair_type> enables applications to get the lengths of the
+ matched keys in addition to the values.
+*/
+typedef struct {
+  darts_value_type value;
+  size_t length;
+} darts_result_pair_type;
+
 /**
  darts_new() constructs an instance of double array trie.
 */
@@ -170,6 +179,14 @@ darts_value_type darts_exact_match_search(const darts_t darts,
                                           size_t node_pos);
 
 /**
+ darts_exact_match_search_pair() returns a darts_result_pair instead.
+*/
+darts_result_pair_type darts_exact_match_search_pair(const darts_t darts,
+                                                     const darts_key_type* key,
+                                                     size_t length,
+                                                     size_t node_pos);
+
+/**
  darts_common_prefix_search() searches for keys which match a prefix of the
  given string. If `length' is 0, `key' is handled as a zero-terminated string.
  The values and the lengths of at most `max_num_results' matched keys are
@@ -181,7 +198,7 @@ darts_value_type darts_exact_match_search(const darts_t darts,
 */
 size_t darts_common_prefix_search(const darts_t darts,
                                   const darts_key_type* key,
-                                  darts_value_type* results,
+                                  darts_result_pair_type* results,
                                   size_t max_num_results,
                                   size_t length,
                                   size_t node_pos);
