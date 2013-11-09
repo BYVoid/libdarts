@@ -39,6 +39,11 @@ void darts_delete(darts_t darts);
 const char* darts_error(const darts_t darts);
 
 /**
+ Returns version string of Darts.
+*/
+const char* darts_version(void);
+
+/**
  darts_set_array() calls darts_clear() in order to free memory allocated to the
  old array and then sets a new array. This function is useful to set a memory-
  mapped array.

@@ -27,6 +27,10 @@ const char* darts_error(const darts_t darts) {
   return inst->err;
 }
 
+const char* darts_version(void) {
+  return DARTS_VERSION;
+}
+
 void darts_set_array(darts_t darts,
                      const void *ptr,
                      size_t size) {
