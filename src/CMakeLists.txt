@@ -1,0 +1,74 @@
+set(
+	LIBDARTS_HEADERS
+	darts.h
+)
+
+set(
+	LIBDARTS_SOURCES
+	darts.cc
+)
+
+set (LIBDARTS_TARGET libdarts)
+set (LIBDARTS_STATIC_TARGET libdarts_static)
+
+add_definitions(
+	-DVERSION="${PROJECT_VERSION}"
+	-DPACKAGE_NAME="${PACKAGE_NAME}"
+	-Wall
+)
+
+add_library(
+	${LIBDARTS_TARGET}
+	SHARED
+	${LIBDARTS_SOURCES}
+)
+
+add_library(
+	${LIBDARTS_STATIC_TARGET}
+	STATIC
+	${LIBDARTS_SOURCES}
+)
+
+set_target_properties(
+	${LIBDARTS_TARGET}
+	${LIBDARTS_STATIC_TARGET}
+	PROPERTIES
+		LINKER_LANGUAGE
+			CXX
+		OUTPUT_NAME
+			darts
+		VERSION
+			0.0.0
+		SOVERSION
+			0
+)
+
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+	add_definitions(
+		-O0
+		-g3
+	)
+endif (CMAKE_BUILD_TYPE MATCHES Debug)
+
+if (NOT WIN32)
+install(
+	TARGETS
+		${LIBDARTS_TARGET}
+	LIBRARY DESTINATION
+		${DIR_LIBRARY}
+)
+endif (NOT WIN32)
+
+install(
+	TARGETS
+		${LIBDARTS_STATIC_TARGET}
+	ARCHIVE DESTINATION
+		${DIR_LIBRARY_STATIC}
+)
+
+install(
+	FILES
+		${LIBDARTS_HEADERS}
+	DESTINATION
+		${DIR_INCLUDE}/libdarts
+)
