@@ -1,4 +1,4 @@
-#include "darts.h"
+#include "../src/darts.h"
 
 #include <cassert>
 #include <cstdlib>
